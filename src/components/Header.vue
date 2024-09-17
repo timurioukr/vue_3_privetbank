@@ -13,7 +13,7 @@ function toggleMobileMenu() {
 <template>
   <header class="header">
     <div class="logo-section">
-      <img src="../assets/logo.svg" alt="logo" class="logo">
+      <img src="@/assets/logo.svg" alt="logo" class="logo" @click="$router.push('/')">
       <span class="search-icon">🔍</span>
       <nav class="navigation" :class="{ 'is-active': isMobileMenuActive }">
         <ul>
