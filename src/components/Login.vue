@@ -1,27 +1,40 @@
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+const emit = defineEmits(['closeLogin'])
+
+const router = useRouter()
+
+const username = ref('')
+const password = ref('')
+const error = ref(false)
+const errorMessage = ref('Неправильний логін або пароль')
+
+function login() {
+  if (username.value === 'admin' && password.value === 'admin') {
+    router.push('/cabinet')
+    emit('closeLogin')
+  } else {
+    error.value = true
+    setTimeout(() => {
+      error.value = false
+    }, 3000)
+  }
+}
+</script>
+
 <template>
-  <div v-if="showPopup" class="popup-overlay">
+  <div class="popup-overlay">
     <div class="popup">
       <h2>Авторизація</h2>
       <form @submit.prevent="login">
         <div class="form-group">
           <label for="username">Логін</label>
-          <input
-            v-model="username"
-            type="text"
-            id="username"
-            placeholder="Введіть логін"
-            required
-          />
+          <input v-model="username" type="text" id="username" placeholder="Введіть логін" required />
         </div>
         <div class="form-group">
           <label for="password">Пароль</label>
-          <input
-            v-model="password"
-            type="password"
-            id="password"
-            placeholder="Введіть пароль"
-            required
-          />
+          <input v-model="password" type="password" id="password" placeholder="Введіть пароль" required />
         </div>
         <button type="submit" class="login-button">Увійти</button>
         <p v-if="error" class="error">{{ errorMessage }}</p>
@@ -29,32 +42,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-
-const showPopup = ref(true); // Показать или скрыть попап
-const username = ref("");
-const password = ref("");
-const error = ref(false);
-const errorMessage = ref("Неправильний логін або пароль");
-const router = useRouter();
-
-function login() {
-  // Проверяем логин и пароль
-  if (username.value === "admin" && password.value === "admin") {
-    // Если данные правильные - перенаправляем на /cabinet
-    router.push("/cabinet");
-  } else {
-    // Если данные неверные, показываем ошибку на несколько секунд
-    error.value = true;
-    setTimeout(() => {
-      error.value = false;
-    }, 3000);
-  }
-}
-</script>
 
 <style scoped>
 .popup-overlay {
@@ -67,7 +54,7 @@ function login() {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 0;
 }
 
 .popup {
@@ -87,6 +74,8 @@ h2 {
 
 .form-group {
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 label {
@@ -96,7 +85,6 @@ label {
 }
 
 input {
-  width: 100%;
   padding: 10px;
   margin-top: 5px;
   background-color: #444;

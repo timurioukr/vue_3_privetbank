@@ -1,3 +1,15 @@
+<script setup>
+import { ref } from 'vue';
+import Login from './Login.vue';
+
+const showLoginPopup = ref(false);
+const isMobileMenuActive = ref(false);
+
+function toggleMobileMenu() {
+  isMobileMenuActive.value = !isMobileMenuActive.value;
+}
+</script>
+
 <template>
   <header class="header">
     <div class="logo-section">
@@ -12,6 +24,8 @@
           </li>
           <li><a href="/archive">Архів</a></li>
           <button @click="showLoginPopup = true" class="login-button login-button-mobile">Вхід</button>
+          <button v-if="$route.name === 'cabinet'" @click="$router.push('/')"
+            class="login-button login-button-mobile">Вихід</button>
 
         </ul>
       </nav>
@@ -21,27 +35,16 @@
       <span class="currency">$ 41.05 / 41.49</span>
       <span class="calendar-icon">📅</span>
       <span class="checklist-icon">✔️</span>
-      <button @click="showLoginPopup = true" class="login-button">Вхід</button>
+      <button v-if="$route.name === 'cabinet'" @click="$router.push('/')" class="login-button">Вихід</button>
+      <button v-else @click="showLoginPopup = true" class="login-button">Вхід</button>
     </div>
 
     <button class="mobile-menu-button" @click="toggleMobileMenu">
       ☰
     </button>
-    <PopUpLogin v-if="showLoginPopup" @close="showLoginPopup = false" />
+    <Login v-if="showLoginPopup" @closeLogin="showLoginPopup = false" />
   </header>
 </template>
-
-<script setup>
-import { ref } from 'vue';
-import PopUpLogin from './PopUpLogin.vue';
-
-const showLoginPopup = ref(false);
-const isMobileMenuActive = ref(false);
-
-function toggleMobileMenu() {
-  isMobileMenuActive.value = !isMobileMenuActive.value;
-}
-</script>
 
 <style scoped>
 .header {
@@ -118,7 +121,8 @@ function toggleMobileMenu() {
   }
 }
 
-.calendar-icon, .checklist-icon {
+.calendar-icon,
+.checklist-icon {
   font-size: 24px;
   margin-right: 20px;
   cursor: pointer;
@@ -160,12 +164,12 @@ function toggleMobileMenu() {
     display: none;
     flex-direction: column;
   }
-  
+
   .navigation ul {
     display: none;
   }
 
-  .navigation.is-active ul{
+  .navigation.is-active ul {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -197,6 +201,4 @@ function toggleMobileMenu() {
     display: block;
   }
 }
-
-
 </style>

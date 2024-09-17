@@ -1,17 +1,6 @@
-<script setup>
-import { ref } from 'vue'
-
-defineProps({
-  msg: String,
-})
-
-const count = ref(0)
-</script>
-
 <template>
   <div class="container">
     <div class="sidebar">
-      <!-- Меню слева -->
       <div class="menu-item">Кредити</div>
       <div class="menu-item">Карти</div>
       <div class="menu-item">Цінні папери</div>
@@ -27,19 +16,18 @@ const count = ref(0)
     </div>
 
     <div class="main-content">
-      <!-- Основные блоки справа -->
       <div class="block">
         <h3>Digital картки від ПривітБанку</h3>
         <p>Кредитний ліміт до 200 000 грн. Випуск і платежі без комісії.</p>
         <button>Переглянути картки</button>
       </div>
-      
+
       <div class="block">
         <h3>Картка іншого банку України та світу</h3>
         <p>Швидко оплачуйте своїми банківськими картками</p>
         <button>Додати картку</button>
       </div>
-      
+
       <div class="block">
         <h3>Переказ на картку</h3>
         <p>0000 0000 0000 0000</p>

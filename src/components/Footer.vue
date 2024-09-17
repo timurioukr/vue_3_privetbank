@@ -1,14 +1,10 @@
 <template>
   <footer class="footer">
     <div class="footer-content">
-      <img src="../assets/logo.svg" alt="logo" height="40" width="auto">
+      <img src="@/assets/logo.svg" alt="logo" height="40" width="auto" />
     </div>
   </footer>
 </template>
-
-<script setup>
-// Нет необходимости в скрипте, если нет логики
-</script>
 
 <style scoped>
 .footer {
